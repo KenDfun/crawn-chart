@@ -78,8 +78,18 @@ class CompanyInfo
 	end
 end
 
-	company = CompanyInfo.new("4689")
-	company.get_chart
+def get_ticker
+	for std_ticker in STDIN
+		ticker.push(std_ticker.to_i)
+	end
+end
+
+#	company = CompanyInfo.new("4689")
+#	company.get_chart
+get_ticker
+print ticker
+
+
 #	company.get_chart_direct
 
 =begin
