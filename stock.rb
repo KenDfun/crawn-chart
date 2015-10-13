@@ -80,14 +80,17 @@ end
 
 def get_ticker
 	for std_ticker in STDIN
-		ticker.push(std_ticker.to_i)
+		p std_ticker.to_i
+		$ticker.push(std_ticker.to_i)
 	end
 end
 
 #	company = CompanyInfo.new("4689")
 #	company.get_chart
+$ticker = []
 get_ticker
-print ticker
+p "size = ",$ticker.size
+p $ticker
 
 
 #	company.get_chart_direct
