@@ -78,18 +78,22 @@ class CompanyInfo
 	end
 end
 
-def get_ticker
-	for std_ticker in STDIN
-		p std_ticker.to_i
-		$ticker.push(std_ticker.to_i)
-	end
+class TickerCode
+	def initialize
+		@ticker = []
+		for std_ticker in STDIN
+			p std_ticker.to_i
+			@ticker.push(std_ticker.to_i)
+		end
+
+		attr_reader :ticker
 end
 
 #	company = CompanyInfo.new("4689")
 #	company.get_chart
-$ticker = []
-get_ticker
-p "size = ",$ticker.size
+
+tickerCode = TickerCode.new
+p "size = ",tickerCode.ticker.size
 p $ticker
 
 
