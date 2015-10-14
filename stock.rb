@@ -3,8 +3,13 @@ require 'nokogiri'
 require 'open-uri'
 
 class CompanyInfo
-	def initialize(ticker_code)
+	def initialize
 		@baseUrl = "http://stocks.finance.yahoo.co.jp/stocks"
+		# @tickerCode = ticker_code
+		# scrape
+	end
+
+	def info(ticker_code)
 		@tickerCode = ticker_code
 		scrape
 	end
@@ -82,9 +87,10 @@ class TickerCode
 	def initialize
 		@ticker = []
 		for std_ticker in STDIN
-			p std_ticker.to_i
+			# p std_ticker.to_i
 			@ticker.push(std_ticker.to_i)
 		end
+	end
 
 		attr_reader :ticker
 end
@@ -93,8 +99,25 @@ end
 #	company.get_chart
 
 tickerCode = TickerCode.new
-p "size = ",tickerCode.ticker.size
-p $ticker
+puts("size = " + tickerCode.ticker.size.to_s)
+# p tickerCode.ticker
+
+company = CompanyInfo.new
+
+tickerCode.ticker.each{|code|
+	puts("ticker = " + code.to_s)
+	company.info(code)
+	puts company.name
+	puts company.category
+	puts company.unit
+	puts "年初来高値："+company.recentHighPrice
+	puts "年初来安値："+company.recentLowPrice
+	puts "高値："+company.highPrice
+	puts "安値："+company.lowPrice
+	puts "株価："+company.price
+
+}
+
 
 
 #	company.get_chart_direct
