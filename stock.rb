@@ -31,7 +31,7 @@ class CompanyInfo
 =end
 	def get_chart()
 		img_url = "http://chart.yahoo.co.jp/?code=#{@tickerCode}.T&tm=6m&type=c&log=off&size=n&over=s,m75,m25&add=v&comp="
-		open("chart_#{tickerCode}.jpg", 'wb') do |file|
+		open("jpeg/chart_#{tickerCode}.jpg", 'wb') do |file|
 			open(img_url,'rb') do |data|
 				file.write(data.read)
 			end
@@ -80,6 +80,7 @@ class CompanyInfo
 	def scrape
 		get_company_info
 		get_stock_info
+		get_chart
 	end
 end
 
@@ -115,6 +116,7 @@ tickerCode.ticker.each{|code|
 	puts "高値："+company.highPrice
 	puts "安値："+company.lowPrice
 	puts "株価："+company.price
+	puts "\n"
 
 }
 
