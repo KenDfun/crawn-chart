@@ -96,6 +96,43 @@ class TickerCode
 		attr_reader :ticker
 end
 
+class HtmlOut
+	def initialize
+		@linkName = ""
+	end
+
+	def create_Html(tickerCode: 9000, name: '---', highPrice: "---", lowPrice: '---', price: '---')
+		@tickerCode = tickerCode
+		@name = name
+		@highPrice = highPrice
+		@lowPrice = lowPrice
+		@price = price
+		fileName = get_chartName(tickerCode);
+		return get_HtmlCode(fileName)
+	end
+
+	private
+
+	def get_chartName(tickerCode)
+		return "jpeg/chart_#{tickerCode}.jpg"
+	end
+
+	def get_HtmlCode(fileName)
+		@contents = '<div class="chart_png">
+<a href="http://www.design-fun.com/wordpress/wp-content/uploads/2015/09/chart_4689.png"><img class="alignnone size-full wp-image-8" src="http://www.design-fun.com/wordpress/wp-content/uploads/2015/09/chart_4689.png" alt="chart_4689" width="630" height="382"></a>
+</div>
+<div class="chart_article">
+<ul>
+<li>yahoo</li>
+<li>終値:458</li>
+</ul>
+</div>
+		p fileName
+	end
+end
+
+
+
 #	company = CompanyInfo.new("4689")
 #	company.get_chart
 
@@ -106,7 +143,7 @@ puts("size = " + tickerCode.ticker.size.to_s)
 company = CompanyInfo.new
 
 tickerCode.ticker.each{|code|
-	puts("ticker = " + code.to_s)
+	puts("ticker: " + code.to_s)
 	company.info(code)
 	puts company.name
 	puts company.category
@@ -117,6 +154,9 @@ tickerCode.ticker.each{|code|
 	puts "安値："+company.lowPrice
 	puts "株価："+company.price
 	puts "\n"
+
+	HtmlOut.new.create_Html(tickerCode: code, name: company.name, highPrice: company.highPrice, lowPrice: company.lowPrice, price: company.price)
+
 
 }
 
