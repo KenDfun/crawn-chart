@@ -17,7 +17,14 @@
       <div class="chart_article">
         <ul>
           <li><%= @name %></li>
-          <li>終値:<%= @price %></li>
+          <li>Ticker Code:<%= @strTickerCode %></li>
+            <li>終値:<%= @price %></li>
+            <li><p></P></li>
+            <li>高値：<%= @highPrice %></li>
+            <li>安値:<%= @lowPrice %></li>
+            <li>年初来高値：<%= @recentHighPrice %></li>
+            <li>年初来安値：<%= @recentLowPrice %></li>
+
         </ul>
       </div>
     </div>
