@@ -18,8 +18,8 @@ content = "aaa"
 #   f.read
 # }
 #cat = ['テスト','stock'] # カテゴリのtag_IDを指定...[1,20,50]のように
-#cat = "stock"
-# tag = "ruby" # カテゴリと同じ様に
+cat = "stock"
+tag = "ruby" # カテゴリと同じ様に
 
 begin
 post_id = wp.newPost(
@@ -30,8 +30,8 @@ post_id = wp.newPost(
         post_content: content,
         post_title: title,
         terms: {
-            category: ['テスト','stock'],
-            # post_tag: tag,
+            category: cat,
+            post_tag: tag,
         }
     }
 )
