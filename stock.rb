@@ -118,15 +118,8 @@ class HtmlOut
 	end
 
 	def get_HtmlCode(fileName)
-		@contents = '<div class="chart_png">
-<a href="http://www.design-fun.com/wordpress/wp-content/uploads/2015/09/chart_4689.png"><img class="alignnone size-full wp-image-8" src="http://www.design-fun.com/wordpress/wp-content/uploads/2015/09/chart_4689.png" alt="chart_4689" width="630" height="382"></a>
-</div>
-<div class="chart_article">
-<ul>
-<li>yahoo</li>
-<li>終値:458</li>
-</ul>
-</div>
+		@contents = 
+
 		p fileName
 	end
 end
