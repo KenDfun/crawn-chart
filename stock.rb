@@ -43,8 +43,6 @@ class CompanyInfo
 		print open(url,'rb').read
 	end
 
-
-
 	attr_reader :name, :tickerCode, :category,
 		:unit, :recentHighPrice, :recentLowPrice,
 		:highPrice, :lowPrice, :price
@@ -118,7 +116,7 @@ class HtmlOut
 	end
 
 	def get_HtmlCode(fileName)
-		@contents = 
+		@contents =
 
 		p fileName
 	end

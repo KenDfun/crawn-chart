@@ -10,6 +10,7 @@ class HtmlOut
 	def create_Html(harrayCompanyInfo)
     @harrayCompanyInfo = harrayCompanyInfo
     @content = get_HtmlCode("wordpress_chart.html.erb")
+    out_HtmlCode("wordpress_upload.html")
 	end
 
 	private
@@ -28,7 +29,14 @@ class HtmlOut
       ERB.new(f.read).result(binding)
     }
   end
-    # ERB.new(File.read("wordpress_chart.html.erb",'r:utf-8')).result(binding)
+
+  def out_HtmlCode(fileName)
+    File.open(fileName,'w:utf-8'){|f|
+        f.write(@content)
+    }
+  end
+
+
 end
 
 harrayCompanyInfo = [
@@ -44,12 +52,12 @@ harrayCompanyInfo = [
     name: " ANA",
     highPrice: "200",
     lowPrice: "300",
-    price: "700"
+    price: "600"
 
   }
 ]
 
-puts HtmlOut.new.create_Html(harrayCompanyInfo)
+HtmlOut.new.create_Html(harrayCompanyInfo)
 
 =begin
 puts HtmlOut.new.create_Html(

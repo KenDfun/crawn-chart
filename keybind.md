@@ -8,6 +8,7 @@
 `ctrl-l :  行を選択`  
 `ctrl-shift-k  : 行を削除`  
 `ctrl-e: 行最後へ移動`  
+`ctrl-enter:  現在の行の下に行を追加`  
 
 
 ### ruby
