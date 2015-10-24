@@ -45,8 +45,6 @@ class CompanyInfo
 				file.write(data.read)
 			end
 		end
-		@chartUrl = WordpressAccess.new.upload_chartFile("chart_#{tickerCode}.jpg")
-		puts @chartUrl
 	end
 
 	def get_chart_direct()
@@ -102,7 +100,6 @@ class HtmlOut
     File.open(fileName,'w:utf-8'){|f|
         f.write(@content)
     }
-		WordpressAccess.new.upload_htmlFile(fileName)
   end
 
 	# get from ERB
@@ -215,6 +212,10 @@ tickerCode.ticker.each{|code|
 }
 
 HtmlOut.new.create_Html(harrayCompanyInfo)
+
+@chartUrl = WordpressAccess.new.upload_chartFile("chart_#{tickerCode}.jpg")
+puts @chartUrl
+WordpressAccess.new.upload_htmlFile(fileName)
 
 
 #p harrayCompanyInfo
