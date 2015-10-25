@@ -3,31 +3,54 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>HTML5サンプル</title>
+  <title>Stock Charts</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-  <% @harrayCompanyInfo.each do |info| %>
-    <% get_chartName(info) %>
-    <div class="stock_chart">
-      <div class="chart_png">
-        <a href="<%= @chartUrl %>">
-        <img class="alignnone size-full wp-image-8" src="<%= @chartUrl %>" alt="chart_<%= @strTickerCode %>" width="630" height="382"></a>
-      </div>
-      <div class="chart_article">
-        <ul>
-          <li><%= @name %></li>
-          <li>Ticker Code:<%= @strTickerCode %></li>
-            <li>終値:<%= @price %></li>
-            <li><p></P></li>
-            <li>高値：<%= @highPrice %></li>
-            <li>安値:<%= @lowPrice %></li>
-            <li>年初来高値：<%= @recentHighPrice %></li>
-            <li>年初来安値：<%= @recentLowPrice %></li>
 
-        </ul>
-      </div>
+<body>
+
+<div class="site">
+  <h1><a href="#">Kabu Charts</a></h1>
+  <p>Show share charts which are from Yahoo finance.<p>
+</div>
+
+<div class="menu">
+  <nav class="menu">
+  <ul>
+  <li><a href="#">Top</a></li>
+  <li><a href="#">Setup</a></li>
+  <li><a href="#">Link</a></li>
+  <ul>
+  </nav>
+</div>
+
+<% @harrayCompanyInfo.each do |info| %>
+  <% get_chartName(info) %>
+  <div class="stock_chart">
+    <div class="chart_png">
+      <h1><%= @name %></h1>
+      <img src="<%= @chartUrl %>" alt="chart_<%= @strTickerCode %>" width="630" height="382"></a>
     </div>
-  <% end %>
+    <div class="chart_article">
+      <h1>詳細情報</h1>
+      <ul>
+      <li>Ticker Code:<%= @strTickerCode %></li>
+      <li>終値:<%= @price %></li>
+      <li>高値：<%= @highPrice %></li>
+      <li>安値:<%= @lowPrice %></li>
+      <li>年初来高値：<%= @recentHighPrice %></li>
+      <li>年初来安値：<%= @recentLowPrice %></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<div class="copyright">
+  <p>Thease charts have gotten from Yahoo finance.</p>
+  <p>Created by kabu-charts.dreamhosters.com</p>
+</div>
+
+
 </body>
+
 </html>

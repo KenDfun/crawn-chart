@@ -2,8 +2,6 @@
 require 'nokogiri'
 require 'open-uri'
 require 'erb'
-require 'mime/types'
-require 'rubypress'
 
 class CompanyInfo
 	def initialize
@@ -39,8 +37,9 @@ class CompanyInfo
 	end
 
 	def get_chart()
+		@chartUrl = "jpeg/chart_#{@tickerCode}.jpg"
 		img_url = "http://chart.yahoo.co.jp/?code=#{@tickerCode}.T&tm=6m&type=c&log=off&size=n&over=s,m75,m25&add=v&comp="
-		open("jpeg/chart_#{tickerCode}.jpg", 'wb') do |file|
+		open(@chartUrl, 'wb') do |file|
 			open(img_url,'rb') do |data|
 				file.write(data.read)
 			end
@@ -84,7 +83,7 @@ class HtmlOut
 	def create_Html(harrayCompanyInfo)
     @harrayCompanyInfo = harrayCompanyInfo
     @content = get_HtmlCode("wordpress_chart.html.erb")
-    out_HtmlCode("wordpress_upload.html")
+    out_HtmlCode("index.html")
 	end
 
 
@@ -118,63 +117,6 @@ class HtmlOut
 	end
 end
 
-class WordpressAccess
-	def initialize
-		@wp = Rubypress::Client.new(
-		    host: 'www.design-fun.com',
-		    username: 'okbken',
-		    password: "pagewebakari3",
-		    path: '/wordpress/xmlrpc.php',
-		)
-
-		@cat = "stock"
-		@tag = "ruby" # カテゴリと同じ様に
-		@title = Date.today.strftime("Chart %Y-%x")
-
-	end
-
-	def upload_htmlFile(fileName)
-		content = File.open(fileName,'r:utf-8'){|f|
-		  f.read
-		}
-		begin
-		post_id = @wp.newPost(
-		    blog_id: 1, #通常は1でOK
-		    content:{
-		        post_status: 'publish', #公開:publish　下書き:draft
-		        post_date: Time.now - 32400,
-		        post_content: content,
-		        post_title: "test",
-		        terms: {
-		            category: @cat,
-		            post_tag: @tag,
-		        }
-		    }
-		)
-		rescue XMLRPC::FaultException => e
-		  puts "Error"
-		  puts e.faultCode
-		  puts e.faultString
-		end
-	end
-
-	def upload_chartFile(fileName)
-		fileNamePath = "jpeg/#{fileName}"
-		content = File.open(fileNamePath,'rb'){|f|
-		  f.read
-		}
-
-		retcode = @wp.uploadFile(
-		  data: {
-		    name: fileName,
-		    type: MIME::Types.type_for(fileNamePath).first.to_s,
-		    bits: XMLRPC::Base64.new(content)
-		  }
-		)
-		p retcode["url"]
-		return retcode["url"]
-	end
-end
 
 
 tickerCode = TickerCode.new
@@ -212,52 +154,3 @@ tickerCode.ticker.each{|code|
 }
 
 HtmlOut.new.create_Html(harrayCompanyInfo)
-
-@chartUrl = WordpressAccess.new.upload_chartFile("chart_#{tickerCode}.jpg")
-puts @chartUrl
-WordpressAccess.new.upload_htmlFile(fileName)
-
-
-#p harrayCompanyInfo
-
-#	company.get_chart_direct
-
-=begin
-	puts company.name
-	puts company.category
-	puts company.unit
-	puts "年初来高値："+company.recentHighPrice
-	puts "年初来安値："+company.recentLowPrice
-	puts "高値："+company.highPrice
-	puts "安値："+company.lowPrice
-	puts "株価："+company.price
-=end
-=begin
-class HtmlOut
-	def initialize
-		@linkName = ""
-	end
-
-	def create_Html(tickerCode: 9000, name: '---', highPrice: "---", lowPrice: '---', price: '---')
-		@tickerCode = tickerCode
-		@name = name
-		@highPrice = highPrice
-		@lowPrice = lowPrice
-		@price = price
-		fileName = get_chartName(tickerCode);
-		return get_HtmlCode(fileName)
-	end
-
-	private
-
-	def get_chartName(tickerCode)
-		return "jpeg/chart_#{tickerCode}.jpg"
-	end
-
-	def get_HtmlCode(fileName)
-		@contents =
-
-		p fileName
-	end
-end
-=end
