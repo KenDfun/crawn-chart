@@ -4,7 +4,7 @@ require "net/sftp"
 
 class UploadToWebsite
   def initialize
-    @sftp = Net::SFTP.start('kabu-chart.dreamhosters.com',"kabuchk",{password: "dreamakari3"})
+    @sftp = Net::SFTP.start('kabu-chart.dreamhosters.com',"kabuchk",{:password => "dreamakari3"})
   end
 
   def upload(fileName)
