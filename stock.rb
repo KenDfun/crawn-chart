@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 require 'nokogiri'
 require 'open-uri'
 require 'erb'
