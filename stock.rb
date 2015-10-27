@@ -2,11 +2,11 @@
 # -*- mode:ruby; coding:utf-8 -*-
 $KCODE='u'
 require 'jcode'
-
-# -*- coding: utf-8 -*-
 require 'nokogiri'
 require 'open-uri'
 require 'erb'
+
+$HTML_HOME = "/home/kabuchk/kabu-chart.dreamhosters.com"
 
 class CompanyInfo
 	def initialize
@@ -42,7 +42,7 @@ class CompanyInfo
 	end
 
 	def get_chart()
-		@chartUrl = "jpeg/chart_#{@tickerCode}.jpg"
+		@chartUrl = "#{$HTML_HOME}/jpeg/chart_#{@tickerCode}.jpg"
 		img_url = "http://chart.yahoo.co.jp/?code=#{@tickerCode}.T&tm=6m&type=c&log=off&size=n&over=s,m75,m25&add=v&comp="
 		open(@chartUrl, 'wb') do |file|
 			open(img_url,'rb') do |data|
