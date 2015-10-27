@@ -3,6 +3,7 @@
 require "net/sftp"
 
 $HTML_HOME = "/home/kabuchk/kabu-chart.dreamhosters.com"
+$SRC_HOME = "/home/kabuchk/src/crawn-chart"
 
 
 class UploadToWebsite
@@ -11,7 +12,9 @@ class UploadToWebsite
   end
 
   def upload(fileName)
-    @sftp.upload!(fileName,"/home/kabuchk/kabu-chart.dreamhosters.com/#{fileName}")
+    fullpathFileName = "#{$SRC_HOME}/#{fileName}"
+    puts fullpathFileName
+    @sftp.upload!(fullpathFileName,"#{$HTML_HOME}/#{fileName}")
     puts "upload: " + fileName
   end
 end
@@ -20,5 +23,5 @@ webSession = UploadToWebsite.new
 webSession.upload("index.html")
 
 for std_ticker in STDIN
-  webSession.upload("#{$HTML_HOME}/jpeg/chart_#{std_ticker.chomp}.jpg")
+  webSession.upload("jpeg/chart_#{std_ticker.chomp}.jpg")
 end

@@ -6,9 +6,11 @@ require 'nokogiri'
 require 'open-uri'
 require 'erb'
 
-$HTML_HOME = "/home/kabuchk/kabu-chart.dreamhosters.com"
-$ERB_FILE = "#{$HTML_HOME}/wordpress_chart.html.erb"
-$INDEX_FILE ="#{$HTML_HOME}/index.html"
+
+$SRC_HOME = "/home/kabuchk/src/crawn-chart"
+
+$ERB_FILE = "#{$SRC_HOME}/wordpress_chart.html.erb"
+$INDEX_FILE ="#{$SRC_HOME}/index.html"
 
 class CompanyInfo
 	def initialize
@@ -44,7 +46,7 @@ class CompanyInfo
 	end
 
 	def get_chart()
-		@chartUrl = "#{$HTML_HOME}/jpeg/chart_#{@tickerCode}.jpg"
+		@chartUrl = "#{$SRC_HOME}/jpeg/chart_#{@tickerCode}.jpg"
 		img_url = "http://chart.yahoo.co.jp/?code=#{@tickerCode}.T&tm=6m&type=c&log=off&size=n&over=s,m75,m25&add=v&comp="
 		open(@chartUrl, 'wb') do |file|
 			open(img_url,'rb') do |data|
