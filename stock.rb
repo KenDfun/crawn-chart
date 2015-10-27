@@ -43,7 +43,7 @@ class CompanyInfo
 		@highPrice = doc.xpath("//div[@class='innerDate']/div[3]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@lowPrice = doc.xpath("//div[@class='innerDate']/div[4]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@price = doc.xpath("//td[@class='stoksPrice']").text
-		@chartUrl = "#{$HTML_HOME}/jpeg/chart_#{@tickerCode}.jpg"
+		@chartUrl = "jpeg/chart_#{@tickerCode}.jpg"
 	end
 
 	def get_chart()
