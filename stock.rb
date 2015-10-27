@@ -1,3 +1,8 @@
+#! ruby -Ku
+# -*- mode:ruby; coding:utf-8 -*-
+$KCODE='u'
+require 'jcode'
+
 # -*- coding: utf-8 -*-
 require 'nokogiri'
 require 'open-uri'
@@ -139,17 +144,17 @@ tickerCode.ticker.each{|code|
 
 
 	harrayCompanyInfo.push({
-		numTickerCode: company.tickerCode,
-		strTickerCode: company.tickerCode.to_s,
-		name: company.name,
-		category: company.category,
-		unit: company.unit,
-		recentHighPrice: company.recentHighPrice,
-		recentLowPrice: company.recentLowPrice,
-		highPrice: company.highPrice,
-		lowPrice: company.lowPrice,
-		price: company.price,
-		chartUrl: company.chartUrl
+		:numTickerCode => company.tickerCode,
+		:strTickerCode => company.tickerCode.to_s,
+		:name => company.name,
+		:category => company.category,
+		:unit => company.unit,
+		:recentHighPrice => company.recentHighPrice,
+		:recentLowPrice => company.recentLowPrice,
+		:highPrice => company.highPrice,
+		:lowPrice => company.lowPrice,
+		:price => company.price,
+		:chartUrl => company.chartUrl
 	})
 }
 
