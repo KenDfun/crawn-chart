@@ -7,6 +7,8 @@ require 'open-uri'
 require 'erb'
 
 $HTML_HOME = "/home/kabuchk/kabu-chart.dreamhosters.com"
+$ERB_FILE = "#{$HTML_HOME}/wordpress_chart.html.erb"
+$INDEX_FILE ="#{$HTML_HOME}/index.html"
 
 class CompanyInfo
 	def initialize
@@ -87,8 +89,8 @@ end
 class HtmlOut
 	def create_Html(harrayCompanyInfo)
     @harrayCompanyInfo = harrayCompanyInfo
-    @content = get_HtmlCode("wordpress_chart.html.erb")
-    out_HtmlCode("index.html")
+    @content = get_HtmlCode($ERB_FILE)
+    out_HtmlCode($INDEX_FILE)
 	end
 
 
