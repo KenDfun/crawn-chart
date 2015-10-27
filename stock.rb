@@ -6,7 +6,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'erb'
 
-
+$HTML_HOME = "/home/kabuchk/kabu-chart.dreamhosters.com"
 $SRC_HOME = "/home/kabuchk/src/crawn-chart"
 
 $ERB_FILE = "#{$SRC_HOME}/wordpress_chart.html.erb"
@@ -43,12 +43,13 @@ class CompanyInfo
 		@highPrice = doc.xpath("//div[@class='innerDate']/div[3]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@lowPrice = doc.xpath("//div[@class='innerDate']/div[4]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@price = doc.xpath("//td[@class='stoksPrice']").text
+		@chartUrl = "#{$HTML_HOME}/jpeg/chart_#{@tickerCode}.jpg"
 	end
 
 	def get_chart()
-		@chartUrl = "#{$SRC_HOME}/jpeg/chart_#{@tickerCode}.jpg"
+		chartFile = "#{$SRC_HOME}/jpeg/chart_#{@tickerCode}.jpg"
 		img_url = "http://chart.yahoo.co.jp/?code=#{@tickerCode}.T&tm=6m&type=c&log=off&size=n&over=s,m75,m25&add=v&comp="
-		open(@chartUrl, 'wb') do |file|
+		open(chartFile, 'wb') do |file|
 			open(img_url,'rb') do |data|
 				file.write(data.read)
 			end
