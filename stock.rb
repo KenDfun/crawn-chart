@@ -1,13 +1,14 @@
 #! ruby -Ku
 # -*- mode:ruby; coding:utf-8 -*-
 $KCODE='u'
-require 'jcode'
+# require 'jcode'
 require 'nokogiri'
 require 'open-uri'
 require 'erb'
 
 $HTML_HOME = "/home/kabuchk/kabu-chart.dreamhosters.com"
 $SRC_HOME = "/home/kabuchk/src/crawn-chart"
+$SRC_HOME = "."
 
 $ERB_FILE = "#{$SRC_HOME}/wordpress_chart.html.erb"
 $INDEX_FILE ="#{$SRC_HOME}/index.html"
@@ -24,7 +25,7 @@ class CompanyInfo
 
 	attr_reader :name, :tickerCode, :category,
 		:unit, :recentHighPrice, :recentLowPrice,
-		:highPrice, :lowPrice, :price, :chartUrl
+		:highPrice, :lowPrice, :price, :lastDayPrice, :chartUrl
 
 	private
 	def get_company_info()
@@ -43,6 +44,7 @@ class CompanyInfo
 		@highPrice = doc.xpath("//div[@class='innerDate']/div[3]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@lowPrice = doc.xpath("//div[@class='innerDate']/div[4]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@price = doc.xpath("//td[@class='stoksPrice']").text
+		@lastDayPrice = doc.xpath("//*[@id='detail']/div[2]/div[1]/dl/dd/strong").text
 		@chartUrl = "jpeg/chart_#{@tickerCode}.jpg"
 	end
 
@@ -122,6 +124,7 @@ class HtmlOut
 		@lowPrice = arrayCompanyInfo[:lowPrice]
 		@recentHighPrice = arrayCompanyInfo[:recentHighPrice]
 		@recentLowPrice = arrayCompanyInfo[:recentLowPrice]
+		@lastDayPrice = arrayCompanyInfo[:lastDayPrice]
 		@fileName = "jpeg/chart_#{@numTickerCode}.jpg"
 		@chartUrl = arrayCompanyInfo[:chartUrl]
 	end
@@ -145,6 +148,7 @@ tickerCode.ticker.each{|code|
 	puts "高値："+company.highPrice
 	puts "安値："+company.lowPrice
 	puts "株価："+company.price
+	puts "前日値:"+company.lastDayPrice
 	puts "\n"
 
 
@@ -159,6 +163,7 @@ tickerCode.ticker.each{|code|
 		:highPrice => company.highPrice,
 		:lowPrice => company.lowPrice,
 		:price => company.price,
+		:lastDayPrice => company.lastDayPrice,
 		:chartUrl => company.chartUrl
 	})
 }
