@@ -1,7 +1,7 @@
 #! ruby -Ku
 # -*- mode:ruby; coding:utf-8 -*-
-$KCODE='u'
-require 'jcode'
+#$KCODE='u'
+#require 'jcode'
 
 # -*- coding: utf-8 -*-
 require 'nokogiri'
