@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Stock Charts</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+<div class="site">
+  <h1><a href="#">Kabu Charts</a></h1>
+  <p>Show share charts which are from Yahoo finance.<p>
+</div>
+
+<div class="menu">
+  <nav class="menu">
+  <ul>
+  <li><a href="#">Top</a></li>
+  <li><a href="#">Setup</a></li>
+  <li><a href="#">Link</a></li>
+  <ul>
+  </nav>
+</div>
+
+<% @harrayCompanyInfo.each do |info| %>
+  <% get_chartName(info) %>
+  <div class="stock_chart">
+    <div class="chart_png">
+      <h1><%= @name %></h1>
+      <img src="<%= @chartUrl %>" alt="chart_<%= @strTickerCode %>" width="630" height="382"></a>
+    </div>
+    <div class="chart_article">
+      <h1>詳細情報<span><%= @strTickerCode %></span></h1>
+      <ul>
+      <li><span class="detail_left_1">終値</span><span class="detail_right_1"><%= @price %></span><br /></li>
+      <li><span class="detail_left_2">高値</span><span class="detail_right_2"><%= @highPrice %></span><br /></li>
+      <li><span class="detail_left_1">安値</span><span class="detail_right_1"><%= @lowPrice %></span><br /></li>
+      <li><span class="detail_left_2">前日終値</span><span class="detail_right_2"><%= @lastDayPrice %></span><br /></li>
+      <li><span class="detail_left_1">年初来高値</span><span class="detail_right_1"><%= @recentHighPrice %></span><br /></li>
+      <li><span class="detail_left_2">年初来安値</span><span class="detail_right_2"><%= @recentLowPrice %></span><br /></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<div class="copyright">
+  <p>Thease charts have gotten from Yahoo finance.</p>
+  <p>Created by kabu-charts.dreamhosters.com</p>
+</div>
+
+
+</body>
+
+</html>

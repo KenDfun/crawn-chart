@@ -1,1 +1,0 @@
-#<StringIO:0x007fd9c28a0f40>

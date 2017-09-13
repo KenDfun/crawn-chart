@@ -1,7 +1,15 @@
-# -*- coding: utf-8 -*-
+#! ruby -EUTF-8
+# -*- mode:ruby; coding:utf-8 -*-
+
 require 'nokogiri'
 require 'open-uri'
 require 'erb'
+
+#$SRC_HOME = "/home/kabuchk/crawl-chart"
+$SRC_HOME = ENV['HOME']+"/src/crawl-chart"
+
+$ERB_FILE = "#{$SRC_HOME}/index.html.erb"
+$INDEX_FILE ="#{$SRC_HOME}/index.html"
 
 class CompanyInfo
 	def initialize
@@ -15,7 +23,7 @@ class CompanyInfo
 
 	attr_reader :name, :tickerCode, :category,
 		:unit, :recentHighPrice, :recentLowPrice,
-		:highPrice, :lowPrice, :price, :chartUrl
+		:highPrice, :lowPrice, :price, :lastDayPrice, :chartUrl
 
 	private
 	def get_company_info()
@@ -34,12 +42,14 @@ class CompanyInfo
 		@highPrice = doc.xpath("//div[@class='innerDate']/div[3]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@lowPrice = doc.xpath("//div[@class='innerDate']/div[4]/dl/dd[@class='ymuiEditLink mar0']/strong").text
 		@price = doc.xpath("//td[@class='stoksPrice']").text
+		@lastDayPrice = doc.xpath("//*[@id='detail']/div[2]/div[1]/dl/dd/strong").text
+		@chartUrl = "jpg/chart_#{@tickerCode}.jpg"
 	end
 
 	def get_chart()
-		@chartUrl = "jpeg/chart_#{@tickerCode}.jpg"
+		chartFile = "#{$SRC_HOME}/jpg/chart_#{@tickerCode}.jpg"
 		img_url = "http://chart.yahoo.co.jp/?code=#{@tickerCode}.T&tm=6m&type=c&log=off&size=n&over=s,m75,m25&add=v&comp="
-		open(@chartUrl, 'wb') do |file|
+		open(chartFile, 'wb') do |file|
 			open(img_url,'rb') do |data|
 				file.write(data.read)
 			end
@@ -82,8 +92,8 @@ end
 class HtmlOut
 	def create_Html(harrayCompanyInfo)
     @harrayCompanyInfo = harrayCompanyInfo
-    @content = get_HtmlCode("wordpress_chart.html.erb")
-    out_HtmlCode("index.html")
+    @content = get_HtmlCode($ERB_FILE)
+    out_HtmlCode($INDEX_FILE)
 	end
 
 
@@ -112,7 +122,8 @@ class HtmlOut
 		@lowPrice = arrayCompanyInfo[:lowPrice]
 		@recentHighPrice = arrayCompanyInfo[:recentHighPrice]
 		@recentLowPrice = arrayCompanyInfo[:recentLowPrice]
-		@fileName = "jpeg/chart_#{@numTickerCode}.jpg"
+		@lastDayPrice = arrayCompanyInfo[:lastDayPrice]
+#		@fileName = "jpeg/chart_#{@numTickerCode}.jpg"
 		@chartUrl = arrayCompanyInfo[:chartUrl]
 	end
 end
@@ -135,21 +146,23 @@ tickerCode.ticker.each{|code|
 	puts "高値："+company.highPrice
 	puts "安値："+company.lowPrice
 	puts "株価："+company.price
+	puts "前日値:"+company.lastDayPrice
 	puts "\n"
 
 
 	harrayCompanyInfo.push({
-		numTickerCode: company.tickerCode,
-		strTickerCode: company.tickerCode.to_s,
-		name: company.name,
-		category: company.category,
-		unit: company.unit,
-		recentHighPrice: company.recentHighPrice,
-		recentLowPrice: company.recentLowPrice,
-		highPrice: company.highPrice,
-		lowPrice: company.lowPrice,
-		price: company.price,
-		chartUrl: company.chartUrl
+		:numTickerCode => company.tickerCode,
+		:strTickerCode => company.tickerCode.to_s,
+		:name => company.name,
+		:category => company.category,
+		:unit => company.unit,
+		:recentHighPrice => company.recentHighPrice,
+		:recentLowPrice => company.recentLowPrice,
+		:highPrice => company.highPrice,
+		:lowPrice => company.lowPrice,
+		:price => company.price,
+		:lastDayPrice => company.lastDayPrice,
+		:chartUrl => company.chartUrl
 	})
 }
 

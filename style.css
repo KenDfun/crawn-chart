@@ -133,6 +133,59 @@ body {
 	font-size: 18px;
 }
 
+.chart_article h1 span {
+	font-size: 18px;
+	float: right;
+	text-align: right;
+	text-align:
+	color: #666666;
+}
+
+.detail_left {
+	float: left;
+	text-align: left;
+	width: 90px;
+	background-color: #ffffff;
+}
+
+.detail_right {
+	float: left;
+	text-align: right;
+	width: 60px;
+	background-color: #ffffff;
+}
+
+
+.detail_left_1 {
+	float: left;
+	text-align: left;
+	width: 90px;
+	background-color: #eeeeee;
+}
+
+.detail_right_1 {
+	float: left;
+	text-align: right;
+	width: 60px;
+	background-color: #eeeeee;
+}
+
+.detail_left_2 {
+	float: left;
+	text-align: left;
+	width: 90px;
+	background-color: #e0e0e0;
+}
+
+.detail_right_2 {
+	float: left;
+	text-align: right;
+	width: 60px;
+	background-color: #e0e0e0;
+}
+
+
+
 /* box priod */
 .site {
 	padding-top: 8px;
